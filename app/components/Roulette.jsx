@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-const Roulette = ({ methods, updateResults, updateHistory }) => {
+const Roulette = ({ methods, updateResults, updateHistory, resetMethods }) => {
   const [numSpins, setNumSpins] = useState(1);
   const [deposit, setDeposit] = useState(50);
   const [balance, setBalance] = useState(50);
@@ -78,21 +78,21 @@ const Roulette = ({ methods, updateResults, updateHistory }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-black">
+    <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md">
       <div>
         <h2 className='text-xl font-bold mb-2'>Montant de Dépôt:</h2>
         <input
           type="number"
           value={deposit}
           onChange={handleDepositChange}
-          className="mt-1 block w-full"
+          className="mt-1 block w-full rounded bg-white dark:bg-gray-600 dark:text-white"
         />
       </div>
       <h2 className="text-xl font-bold mb-2">Nombre de Tours:</h2>
       <select
         value={numSpins}
         onChange={(e) => setNumSpins(parseInt(e.target.value, 10))}
-        className="mt-1 block w-full"
+        className="mt-1 block w-full rounded bg-white dark:bg-gray-600 dark:text-white"
       >
         {[1, 5, 10, 15, 20, 30, 50, 100].map((value) => (
           <option key={value} value={value}>{value}</option>
@@ -103,6 +103,7 @@ const Roulette = ({ methods, updateResults, updateHistory }) => {
       </button>
       <div className="mt-4">
         <h2 className="text-xl font-bold">Solde: {balance} €</h2>
+        <button type="button" onClick={resetMethods} className="w-full px-4 py-2 mt-2 bg-red-500 text-white rounded">Réinitialiser</button>
       </div>
     </div>
   );

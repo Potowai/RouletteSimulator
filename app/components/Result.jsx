@@ -5,7 +5,7 @@ import React from 'react';
 const Result = ({ results }) => {
   const total = results.wins - results.losses;
   return (
-    <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-black">
+    <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md">
       <h2 className="text-xl font-bold mb-4">Résultats</h2>
       <div className="text-lg">
         <p className="mb-2"><span className="font-bold">Gains:</span> {results.wins}€</p>

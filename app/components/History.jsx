@@ -29,11 +29,11 @@ const History = ({ spins }) => {
   const { hotNumbers, coldNumbers } = getHotAndColdNumbers(spins);
 
   return (
-    <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-black">
+    <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md ">
       <h2 className="text-xl font-bold mb-2">Historique</h2>
       <div className="flex flex-wrap">
         {spins.map((spin, index) => (
-          <span key={index} className={`mr-2 ${getColor(spin)}`}>{spin}</span>
+          <span key={index} className={`mr-2 font-black ${getColor(spin)}`}>{spin}</span>
         ))}
       </div>
       {spins.length > 0 && (
@@ -41,13 +41,13 @@ const History = ({ spins }) => {
           <h2 className="text-xl font-bold mt-4">Numéros Chauds</h2>
           <div className="flex flex-wrap">
             {hotNumbers.map((number, index) => (
-              <span key={index} className={`mr-2 ${getColor(number)}`}>{number}</span>
+              <span key={index} className={`mr-2 font-black ${getColor(number)}`}>{number}</span>
             ))}
           </div>
           <h2 className="text-xl font-bold mt-4">Numéros Froids</h2>
           <div className="flex flex-wrap">
             {coldNumbers.map((number, index) => (
-              <span key={index} className={`mr-2 ${getColor(number)}`}>{number}</span>
+              <span key={index} className={`mr-2  font-black ${getColor(number)}`}>{number}</span>
             ))}
           </div>
         </>
