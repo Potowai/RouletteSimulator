@@ -33,7 +33,7 @@ const Roulette = ({ methods, updateResults, updateHistory }) => {
         if (method.type === 'number' && method.value === number) {
           wins += method.amount * 35;
         } else if (method.type === 'color' && method.value === getColor(number)) {
-          wins += method.amount * 1; // Pari couleur paie 1 pour 1
+          wins += method.amount * 2; // Pari couleur paie 1 pour 1
         } else {
           losses += method.amount;
         }

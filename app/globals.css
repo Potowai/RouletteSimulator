@@ -31,3 +31,58 @@ body {
     text-wrap: balance;
   }
 }
+
+.roulette-table-container {
+  display: flex;
+  gap: 2px;
+  padding: 10px;
+  background-color: grey;
+}
+
+.roulette-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.roulette-grid {
+  display: grid;
+  gap: 2px;
+}
+
+.roulette-row {
+  display: flex;
+}
+
+.roulette-cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.roulette-cell.green {
+  background-color: green;
+  height: 100%;
+}
+
+.roulette-cell.red {
+  background-color: red;
+}
+
+.roulette-cell.black {
+  background-color: black;
+}
+
+.roulette-row:last-child .roulette-cell {
+  width: calc(100% / 6);
+}
+
+.roulette-row:nth-last-child(2) .roulette-cell {
+  width: calc(100% / 3);
+}
