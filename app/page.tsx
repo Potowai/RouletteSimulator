@@ -32,13 +32,15 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 text-black">
       <h1 className="text-3xl font-bold mb-8">Simulation de Roulette</h1>
-      <RouletteTable addMethod={addMethod} />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-6xl">
-        <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 w-full max-w-6xl">
+        <div className="space-y-4 col-span-1 md:col-span-1">
           <MethodForm addMethod={addMethod} resetMethods={resetMethods} />
           <Roulette methods={methods} updateResults={updateResults} updateHistory={updateHistory} />
         </div>
-        <div className="space-y-4">
+        <div className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center items-center">
+          <RouletteTable addMethod={addMethod} />
+        </div>
+        <div className="space-y-4 col-span-1 md:col-span-1">
           <MethodList methods={methods} />
           <Result results={results} />
           <History spins={history} />
