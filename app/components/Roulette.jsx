@@ -1,7 +1,7 @@
 // app/components/Roulette.js
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 const Roulette = ({ methods, updateResults, updateHistory }) => {
   const spinRoulette = () => {
@@ -41,8 +41,8 @@ const Roulette = ({ methods, updateResults, updateHistory }) => {
   };
 
   return (
-    <div className="my-4 text-black">
-      <button onClick={spinRoulette} className="px-4 py-2 bg-blue-500 text-white rounded">
+    <div className="text-black">
+      <button onClick={spinRoulette} className="w-full px-4 py-2 bg-blue-500 text-white rounded">
         Lancer la Roulette
       </button>
     </div>

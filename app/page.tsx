@@ -26,14 +26,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 text-black">
-      <h1 className="text-3xl font-bold mb-4">Simulation de Roulette</h1>
-      <div className="flex flex-col md:flex-row md:space-x-4">
-        <div>
+      <h1 className="text-3xl font-bold mb-8">Simulation de Roulette</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-col items-center space-y-4">
           <MethodForm addMethod={addMethod} />
           <Roulette methods={methods} updateResults={updateResults} updateHistory={updateHistory} />
           <Result results={results} />
         </div>
-        <div>
+        <div className="flex flex-col items-center space-y-4">
           <History spins={history} />
         </div>
       </div>

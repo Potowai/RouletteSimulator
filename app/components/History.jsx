@@ -29,7 +29,7 @@ const History = ({ spins }) => {
   const { hotNumbers, coldNumbers } = getHotAndColdNumbers(spins);
 
   return (
-    <div className="bg-white p-4 rounded shadow-md mt-4 w-full max-w-md text-black">
+    <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-black">
       <h2 className="text-xl font-bold mb-2">Historique</h2>
       <div className="flex flex-wrap">
         {spins.map((spin, index) => (

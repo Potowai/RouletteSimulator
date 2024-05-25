@@ -19,15 +19,15 @@ const MethodForm = ({ addMethod }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow-md w-full max-w-md text-black">
-      <div className="mb-4">
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-md text-black space-y-4">
+      <div>
         <label className="block text-gray-700">Type de Pari:</label>
         <select value={type} onChange={handleTypeChange} className="mt-1 block w-full">
           <option value="number">Numéro</option>
           <option value="color">Couleur</option>
         </select>
       </div>
-      <div className="mb-4">
+      <div>
         <label className="block text-gray-700">Valeur:</label>
         {type === 'number' ? (
           <input type="number" value={value} onChange={(e) => setValue(parseInt(e.target.value, 10))} className="mt-1 block w-full"/>
@@ -38,11 +38,11 @@ const MethodForm = ({ addMethod }) => {
           </select>
         )}
       </div>
-      <div className="mb-4">
+      <div>
         <label className="block text-gray-700">Mise:</label>
         <input type="number" value={amount} onChange={(e) => setAmount(parseInt(e.target.value, 10))} className="mt-1 block w-full"/>
       </div>
-      <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded">Ajouter Méthode</button>
+      <button type="submit" className="w-full px-4 py-2 bg-green-500 text-white rounded">Parier !</button>
     </form>
   );
 };
