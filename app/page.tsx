@@ -1,4 +1,3 @@
-// app/page.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -6,6 +5,7 @@ import Roulette from './components/Roulette';
 import MethodForm from './components/MethodForm';
 import Result from './components/Result';
 import History from './components/History';
+import MethodList from './components/MethodList';
 
 const Home = () => {
   const [methods, setMethods] = useState([]);
@@ -14,6 +14,10 @@ const Home = () => {
 
   const addMethod = (method) => {
     setMethods([...methods, method]);
+  };
+
+  const resetMethods = () => {
+    setMethods([]);
   };
 
   const updateResults = (newResults) => {
@@ -25,15 +29,16 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 text-black">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 text-black">
       <h1 className="text-3xl font-bold mb-8">Simulation de Roulette</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col items-center space-y-4">
-          <MethodForm addMethod={addMethod} />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-6xl">
+        <div className="space-y-4">
+          <MethodForm addMethod={addMethod} resetMethods={resetMethods} />
           <Roulette methods={methods} updateResults={updateResults} updateHistory={updateHistory} />
-          <Result results={results} />
         </div>
-        <div className="flex flex-col items-center space-y-4">
+        <div className="space-y-4">
+          <MethodList methods={methods} />
+          <Result results={results} />
           <History spins={history} />
         </div>
       </div>

@@ -36,18 +36,22 @@ const History = ({ spins }) => {
           <span key={index} className={`mr-2 ${getColor(spin)}`}>{spin}</span>
         ))}
       </div>
-      <h2 className="text-xl font-bold mt-4">Numéros Chauds</h2>
-      <div className="flex flex-wrap">
-        {hotNumbers.map((number, index) => (
-          <span key={index} className={`mr-2 ${getColor(number)}`}>{number}</span>
-        ))}
-      </div>
-      <h2 className="text-xl font-bold mt-4">Numéros Froids</h2>
-      <div className="flex flex-wrap">
-        {coldNumbers.map((number, index) => (
-          <span key={index} className={`mr-2 ${getColor(number)}`}>{number}</span>
-        ))}
-      </div>
+      {spins.length > 0 && (
+        <>
+          <h2 className="text-xl font-bold mt-4">Numéros Chauds</h2>
+          <div className="flex flex-wrap">
+            {hotNumbers.map((number, index) => (
+              <span key={index} className={`mr-2 ${getColor(number)}`}>{number}</span>
+            ))}
+          </div>
+          <h2 className="text-xl font-bold mt-4">Numéros Froids</h2>
+          <div className="flex flex-wrap">
+            {coldNumbers.map((number, index) => (
+              <span key={index} className={`mr-2 ${getColor(number)}`}>{number}</span>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
