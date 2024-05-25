@@ -14,7 +14,17 @@ const Home = () => {
   const [history, setHistory] = useState([]);
 
   const addMethod = (method) => {
-    setMethods([...methods, method]);
+    const existingMethodIndex = methods.findIndex(
+      (m) => m.type === method.type && m.value === method.value
+    );
+
+    if (existingMethodIndex !== -1) {
+      const updatedMethods = [...methods];
+      updatedMethods[existingMethodIndex].amount += method.amount;
+      setMethods(updatedMethods);
+    } else {
+      setMethods([...methods, method]);
+    }
   };
 
   const resetMethods = () => {
