@@ -7,6 +7,10 @@ const Roulette = ({ methods, updateResults, updateHistory, resetMethods }) => {
   const [deposit, setDeposit] = useState(50);
   const [balance, setBalance] = useState(50);
 
+  const resetButton = () => {
+    resetMethods();
+    setBalance(deposit);
+  }
   const spinRoulette = () => {
     let newResults = [];
     for (let i = 0; i < numSpins; i++) {
@@ -103,7 +107,7 @@ const Roulette = ({ methods, updateResults, updateHistory, resetMethods }) => {
       </button>
       <div className="mt-4">
         <h2 className="text-xl font-bold">Solde: {balance} €</h2>
-        <button type="button" onClick={resetMethods} className="w-full px-4 py-2 mt-2 bg-red-500 text-white rounded">Réinitialiser</button>
+        <button type="button" onClick={resetButton} className="w-full px-4 py-2 mt-2 bg-red-500 text-white rounded">Réinitialiser</button>
       </div>
     </div>
   );

@@ -1,15 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const RouletteTable = ({ addMethod }) => {
-  const handleClick = (type, number) => {
-    addMethod({ type: type, value: number, amount: 1 });
+  const [bets, setBets] = useState({});
+  const [balance, setBalance] = useState(50); // Solde initial
+
+  const handleClick = (type, value) => {
+    addMethod({ type, value, amount: 1 });
+    setBets((prevBets) => {
+      const key = `${type}-${value}`;
+      const newAmount = prevBets[key] ? prevBets[key] + 1 : 1;
+      return { ...prevBets, [key]: newAmount };
+    });
+    setBalance(balance - 1); // Déduire 1 euro pour chaque mise
   };
 
+  const handleReset = () => {
+    setBets({});
+    setBalance(50); // Réinitialiser le solde
+  };
 
   const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
-  const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
 
   const getColorClass = (number) => {
     if (number === 0) return 'bg-green-600';
@@ -22,51 +34,104 @@ const RouletteTable = ({ addMethod }) => {
     [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34],
   ];
 
+  const renderBet = (type, value) => {
+    const key = `${type}-${value}`;
+    if (bets[key]) {
+      return (
+        <div className="absolute bottom-1 right-1 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-black text-sm">
+          {bets[key]}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="flex justify-center mt-8">
       <div className="bg-gray-800 p-4 rounded-lg">
-        <div className="flex justify-center items-center bg-gray-700 rounded-r-lg">
-            <div className="flex items-center justify-center bg-green-600 rounded cursor-pointer w-10 h-60 " onClick={() => handleClick('number', 0)}>
-                <div className="text-white text-2xl font-bold">0</div>
-            </div>
+        <div className="flex justify-center items-center bg-gray-700 rounded-r-lg relative">
+          <div className="relative flex items-center justify-center bg-green-600 rounded cursor-pointer w-10 h-60" onClick={() => handleClick('number', 0)}>
+            <div className="text-white text-2xl font-bold">0</div>
+            {renderBet('number', 0)}
+          </div>
           <div className="grid grid-cols-12 gap-2 p-4">
             {numberRows[0].map((number) => (
-              <div key={number} className={`${getColorClass(number)} text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer`}  onClick={() => handleClick('number', number)}>{number}</div>
+              <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
+                {number}
+                {renderBet('number', number)}
+              </div>
             ))}
             {numberRows[1].map((number) => (
-              <div key={number} className={`${getColorClass(number)} text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer`}  onClick={() => handleClick('number', number)}>{number}</div>
+              <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
+                {number}
+                {renderBet('number', number)}
+              </div>
             ))}
             {numberRows[2].map((number) => (
-              <div key={number} className={`${getColorClass(number)} text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer`}  onClick={() => handleClick('number', number)}>{number}</div>
+              <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
+                {number}
+                {renderBet('number', number)}
+              </div>
             ))}
-            <div className="col-span-4 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('dozen', '1st12')}>1st12</div>
+            <div className="col-span-4 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '1st12')}>
+                1st12
+                {renderBet('dozen', '1st12')}
+              </div>
             </div>
-            <div className="col-span-4 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('dozen', '2nd12')}>2nd12</div>
+            <div className="col-span-4 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '2nd12')}>
+                2nd12
+                {renderBet('dozen', '2nd12')}
+              </div>
             </div>
-            <div className="col-span-4 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('dozen', '3rd12')}>3rd12</div>
+            <div className="col-span-4 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '3rd12')}>
+                3rd12
+                {renderBet('dozen', '3rd12')}
+              </div>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('section', '1to18')}>1to18</div>
+            <div className="col-span-2 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', '1to18')}>
+                1to18
+                {renderBet('section', '1to18')}
+              </div>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('section', 'EVEN')}>EVEN</div>
+            <div className="col-span-2 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', 'EVEN')}>
+                EVEN
+                {renderBet('section', 'EVEN')}
+              </div>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
-              <div className="bg-red-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('color', 'red')}>RED</div>
+            <div className="col-span-2 relative flex items-center justify-center">
+              <div className="bg-red-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('color', 'red')}>
+                RED
+                {renderBet('color', 'red')}
+              </div>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
-              <div className="bg-black text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('color', 'black')}>BLACK</div>
+            <div className="col-span-2 relative flex items-center justify-center">
+              <div className="bg-black text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('color', 'black')}>
+                BLACK
+                {renderBet('color', 'black')}
+              </div>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('section', 'ODD')}>ODD</div>
+            <div className="col-span-2 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', 'ODD')}>
+                ODD
+                {renderBet('section', 'ODD')}
+              </div>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full"  onClick={() => handleClick('section', '19to36')}>19to36</div>
+            <div className="col-span-2 relative flex items-center justify-center">
+              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', '19to36')}>
+                19to36
+                {renderBet('section', '19to36')}
+              </div>
             </div>
           </div>
+        </div>
+        <div className="flex justify-between items-center mt-4">
+          <button onClick={handleReset} className="px-4 py-2 bg-red-500 text-white rounded">Réinitialiser</button>
+          <div className="text-white text-xl">Solde: {balance}€</div>
         </div>
       </div>
     </div>
