@@ -64,7 +64,10 @@ const Roulette = ({ methods, updateResults, updateHistory, resetMethods }) => {
         } else if (method.type === 'dozen' && method.value === getDozen(number)) {
           wins += method.amount * 3; // Pari douzaine paie 2 pour 1
         } else if (method.type === 'section' && isInSection(number, method.value)) {
-          wins += method.amount * 2; // Exemple de paiement pour une section, ajustez selon vos besoins
+          wins += method.amount * 2;
+        }// Exemple de paiement pour une section, ajustez selon vos besoins
+          else if (method.type === 'color' && method.value === getColor(number)) {
+          wins += method.amount * 2;
         } else {
           losses += method.amount;
         }
