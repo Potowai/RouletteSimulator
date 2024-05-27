@@ -1,26 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
-const RouletteTable = ({ addMethod }) => {
-  const [bets, setBets] = useState({});
-  const [balance, setBalance] = useState(50); // Solde initial
-
-  const handleClick = (type, value) => {
-    addMethod({ type, value, amount: 1 });
-    setBets((prevBets) => {
-      const key = `${type}-${value}`;
-      const newAmount = prevBets[key] ? prevBets[key] + 1 : 1;
-      return { ...prevBets, [key]: newAmount };
-    });
-    setBalance(balance - 1); // Déduire 1 euro pour chaque mise
-  };
-
-  const handleReset = () => {
-    setBets({});
-    setBalance(50); // Réinitialiser le solde
-  };
-
+const RouletteTable = ({ handleClick, renderBet }) => {
   const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 
   const getColorClass = (number) => {
@@ -33,18 +15,6 @@ const RouletteTable = ({ addMethod }) => {
     [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35],
     [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34],
   ];
-
-  const renderBet = (type, value) => {
-    const key = `${type}-${value}`;
-    if (bets[key]) {
-      return (
-        <div className="absolute bottom-1 right-1 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-black text-sm">
-          {bets[key]}
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="flex justify-center mt-8">
@@ -128,10 +98,6 @@ const RouletteTable = ({ addMethod }) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex justify-between items-center mt-4">
-          <button onClick={handleReset} className="px-4 py-2 bg-red-500 text-white rounded">Réinitialiser</button>
-          <div className="text-white text-xl">Solde: {balance}€</div>
         </div>
       </div>
     </div>

@@ -1,9 +1,11 @@
-// app/components/History.js
 'use client';
 
 import React from 'react';
 
 const History = ({ spins }) => {
+  // Limiter les spins aux 100 derniers
+  const limitedSpins = spins.slice(0, 100);
+
   const countOccurrences = (numbers) => {
     const counts = {};
     for (const number of numbers) {
@@ -26,17 +28,17 @@ const History = ({ spins }) => {
     return redNumbers.includes(number) ? 'text-red-500' : 'text-black';
   };
 
-  const { hotNumbers, coldNumbers } = getHotAndColdNumbers(spins);
+  const { hotNumbers, coldNumbers } = getHotAndColdNumbers(limitedSpins);
 
   return (
     <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md ">
       <h2 className="text-xl font-bold mb-2">Historique</h2>
       <div className="flex flex-wrap">
-        {spins.map((spin, index) => (
+        {limitedSpins.map((spin, index) => (
           <span key={index} className={`mr-2 font-black ${getColor(spin)}`}>{spin}</span>
         ))}
       </div>
-      {spins.length > 0 && (
+      {limitedSpins.length > 0 && (
         <>
           <h2 className="text-xl font-bold mt-4">Numéros Chauds</h2>
           <div className="flex flex-wrap">
