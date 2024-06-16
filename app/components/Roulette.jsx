@@ -10,9 +10,8 @@ import { spinRoulette } from '../utils/gameUtils';
 
 const Roulette = () => {
   const [methods, setMethods] = useState([]);
-  const [results, setResults] = useState({ wins: 0, losses: 0 });
+  const [results, setResults] = useState({mise : 0, gains : 0, solde: 50});
   const [history, setHistory] = useState([]);
-  const [balance, setBalance] = useState(50); // Solde initial
   const [numSpins, setNumSpins] = useState(1); // Nombre de lancers
 
   const addMethod = (method) => {
@@ -29,13 +28,8 @@ const Roulette = () => {
     }
   };
 
-  const resetMethods = () => {
-    setMethods([]);
-  };
-
   const handleClick = (type, value) => {
     addMethod({ type, value, amount: 1 });
-    setBalance(balance - 1); // Déduire 1 euro pour chaque mise
   };
 
   const renderBet = (type, value) => {
@@ -53,37 +47,32 @@ const Roulette = () => {
 
   const handleReset = () => {
     setMethods([]);
-    setBalance(50); // Réinitialiser le solde
-    setResults({ wins: 0, losses: 0 });
+    setResults({ mise: 0, gains: 0, solde: 50 });
     setHistory([]);
   };
 
   const handleSpinRoulette = () => {
     let updatedHistory = [...history];
     let updatedResults = { ...results };
-    let updatedBalance = balance;
 
     for (let i = 0; i < numSpins; i++) {
       const { newSpins, newResults } = spinRoulette(methods, updatedHistory, updatedResults);
       updatedHistory = newSpins;
       updatedResults = newResults;
-      updatedBalance += newResults.wins - newResults.losses;
     }
 
     setHistory(updatedHistory);
     setResults(updatedResults);
-    setBalance(updatedBalance);
   };
 
   return (
     <div className="flex flex-col items-center">
       <RouletteTable handleClick={handleClick} renderBet={renderBet} />
-      <div className="flex justify-between items-center mt-4 bg-gray-600 ">
+      <div className="flex justify-between items-center mt-4 w-[100%]">
         <ResetButton handleReset={handleReset} />
-        <div className="text-white text-xl">Solde: {balance}€</div>
         <SpinButton spinRoulette={handleSpinRoulette} />
       </div>
-      <div className="mt-4">
+      <div className="my-4">
         <label className="text-white">Nombre de lancers:</label>
         <select
           className="ml-2 p-2 bg-gray-600 text-white rounded"

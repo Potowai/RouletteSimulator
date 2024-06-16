@@ -34,21 +34,22 @@ export const getColor = (number) => {
     const newSpins = [...history];
     const newResults = { ...results };
     const winningNumber = Math.floor(Math.random() * 37);
-  
+    console.log()
+    console.log(winningNumber,getColor(winningNumber), getDozen(winningNumber))
+
     newSpins.unshift(winningNumber);
-  
     methods.forEach((method) => {
       if (method.type === 'number' && method.value === winningNumber) {
-        newResults.wins += method.amount * 36;
+        newResults.gains += method.amount * 36;
       } else if (method.type === 'dozen' && method.value === getDozen(winningNumber)) {
-        newResults.wins += method.amount * 3; // Pari douzaine paie 2 pour 1
+        newResults.gains += method.amount * 3; // Pari douzaine paie 2 pour 1
       } else if (method.type === 'section' && isInSection(winningNumber, method.value)) {
-        newResults.wins += method.amount * 2;
+        newResults.gains += method.amount * 2;
       } else if (method.type === 'color' && method.value === getColor(winningNumber)) {
-        newResults.wins += method.amount * 2;
-      } else {
-        newResults.losses += method.amount;
+        newResults.gains += method.amount * 2;
       }
+      newResults.mise = method.amount;
+      newResults.solde += newResults.gains - method.amount;
     });
   
     return { newSpins, newResults };
