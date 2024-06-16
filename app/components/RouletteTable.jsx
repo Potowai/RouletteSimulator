@@ -18,13 +18,13 @@ const RouletteTable = ({ handleClick, renderBet }) => {
 
   return (
     <div className="flex justify-center mt-8">
-      <div className="bg-gray-800 p-4 rounded-lg">
+      <div className="bg-gray-800 p-2 rounded-lg">
         <div className="flex justify-center items-center bg-gray-700 rounded-r-lg relative">
           <div className="relative flex items-center justify-center bg-green-600 rounded cursor-pointer w-10 h-60" onClick={() => handleClick('number', 0)}>
             <div className="text-white text-2xl font-bold">0</div>
             {renderBet('number', 0)}
           </div>
-          <div className="grid grid-cols-12 gap-2 p-4">
+          <div className="grid grid-cols-12 gap-2 p-1">
             {numberRows[0].map((number) => (
               <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
                 {number}

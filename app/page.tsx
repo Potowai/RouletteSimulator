@@ -8,7 +8,7 @@ const Home = () => {
   const [darkMode, setDarkMode] = useState(true);
 
   return (
-    <div className={`min-h-screen flex flex-col items-center p-4 ${darkMode ? 'dark' : ''} text-black dark:text-white`}>
+    <div className={`min-h-screen flex flex-col items-center p-2 ${darkMode ? 'dark' : ''} text-black dark:text-white`}>
       <button
         className="absolute top-4 right-4 p-2 rounded-full focus:outline-none"
         onClick={() => setDarkMode(!darkMode)}

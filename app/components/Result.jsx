@@ -1,10 +1,4 @@
-'use client';
-
-import React from 'react';
-
 const Result = ({ results }) => {
-  console.log(results.gains)
-  console.log(results.solde)
   return (
     <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md">
       <h2 className="text-xl font-bold mb-4">Résultats</h2>

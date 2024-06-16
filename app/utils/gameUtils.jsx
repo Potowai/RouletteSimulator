@@ -31,27 +31,26 @@ export const getColor = (number) => {
   };
   
   export const spinRoulette = (methods, history, results) => {
-    const newSpins = [...history];
-    const newResults = { ...results };
-    const winningNumber = Math.floor(Math.random() * 37);
-    console.log()
-    console.log(winningNumber,getColor(winningNumber), getDozen(winningNumber))
+  const newResults = { ...results, gains: 0, mise: 0 };
+  const winningNumber = Math.floor(Math.random() * 37);
 
-    newSpins.unshift(winningNumber);
-    methods.forEach((method) => {
-      if (method.type === 'number' && method.value === winningNumber) {
-        newResults.gains += method.amount * 36;
-      } else if (method.type === 'dozen' && method.value === getDozen(winningNumber)) {
-        newResults.gains += method.amount * 3; // Pari douzaine paie 2 pour 1
-      } else if (method.type === 'section' && isInSection(winningNumber, method.value)) {
-        newResults.gains += method.amount * 2;
-      } else if (method.type === 'color' && method.value === getColor(winningNumber)) {
-        newResults.gains += method.amount * 2;
-      }
-      newResults.mise = method.amount;
-      newResults.solde += newResults.gains - method.amount;
-    });
-  
-    return { newSpins, newResults };
-  };
+  methods.forEach((method) => {
+    let methodGains = 0;
+    if (method.type === 'number' && method.value === winningNumber) {
+      methodGains = method.amount * 36;
+    } else if (method.type === 'dozen' && method.value === getDozen(winningNumber)) {
+      methodGains = method.amount * 3; // Pari douzaine paie 2 pour 1
+    } else if (method.type === 'section' && isInSection(winningNumber, method.value)) {
+      methodGains = method.amount * 2;
+    } else if (method.type === 'color' && method.value === getColor(winningNumber)) {
+      methodGains = method.amount * 2;
+    }
+    newResults.gains += methodGains;
+    newResults.mise += method.amount;
+    newResults.solde += methodGains - method.amount;
+  });
+
+  return { winningNumber, newResults };
+};
+
   

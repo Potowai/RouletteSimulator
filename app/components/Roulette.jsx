@@ -47,8 +47,9 @@ const Roulette = () => {
 
   const handleReset = () => {
     setMethods([]);
-    setResults({ mise: 0, gains: 0, solde: 50 });
+    setResults({ mise: 0, gains: 0, solde: 1 });
     setHistory([]);
+    setNumSpins(1);
   };
 
   const handleSpinRoulette = () => {
@@ -56,8 +57,8 @@ const Roulette = () => {
     let updatedResults = { ...results };
 
     for (let i = 0; i < numSpins; i++) {
-      const { newSpins, newResults } = spinRoulette(methods, updatedHistory, updatedResults);
-      updatedHistory = newSpins;
+      const { winningNumber, newResults } = spinRoulette(methods, updatedHistory, updatedResults);
+      updatedHistory.unshift(winningNumber);
       updatedResults = newResults;
     }
 
