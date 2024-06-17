@@ -45,8 +45,8 @@ const getNextFibonacciBet = (history) => {
 
 export const spinRoulette = (methods, history, results, strategy) => {
   const newResults = { ...results, gains: 0, mise: 0 };
-  //const winningNumber = Math.floor(Math.random() * 37);
-  const winningNumber = 4;
+  const winningNumber = Math.floor(Math.random() * 37);
+  
   methods.forEach((method) => {
     let methodGains = 0;
     let amount = method.amount;
