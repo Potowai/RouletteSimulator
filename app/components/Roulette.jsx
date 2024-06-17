@@ -23,6 +23,7 @@ const Roulette = () => {
     if (existingMethodIndex !== -1) {
       const updatedMethods = [...methods];
       updatedMethods[existingMethodIndex].amount += method.amount;
+      updatedMethods[existingMethodIndex].initialBet += method.initialBet;
       setMethods(updatedMethods);
     } else {
       setMethods([...methods, method]);
@@ -30,7 +31,7 @@ const Roulette = () => {
   };
 
   const handleClick = (type, value) => {
-    addMethod({ type, value, amount: 1, win: true});
+    addMethod({ type, value, amount: 1, win: true, initialBet: 1});
   };
 
   const renderBet = (type, value) => {

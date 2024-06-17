@@ -32,21 +32,21 @@ export const isInSection = (number, section) => {
 
 const fibonacciSequence = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233];
 
-const getNextMartingaleBet = (lastBet, win) => {
-  return win ? lastBet : lastBet * 2;
+const getNextMartingaleBet = (initialBet, lastBet, win) => {
+  return win ? initialBet : lastBet * 2;
 };
 
-const getNextFibonacciBet = (history) => {
+const getNextFibonacciBet = (history, initialBet) => {
   const losses = history.filter(h => h.win === false).length;
-  console.log(history, losses)
-
-  return fibonacciSequence[Math.min(losses, fibonacciSequence.length - 1)];
+  const index = Math.max(0, losses - 2);
+  return fibonacciSequence[index] * initialBet;
 };
+
 
 export const spinRoulette = (methods, history, results, strategy) => {
   const newResults = { ...results, gains: 0, mise: 0 };
   const winningNumber = Math.floor(Math.random() * 37);
-  
+
   methods.forEach((method) => {
     let methodGains = 0;
     let amount = method.amount;
@@ -66,9 +66,11 @@ export const spinRoulette = (methods, history, results, strategy) => {
     newResults.solde += methodGains - amount;
 
     method.win = methodGains > 0;
-
     if (strategy === 'martingale') {
-      amount = getNextMartingaleBet(method.amount, method.win);
+    amount = getNextMartingaleBet(method.amount, method.win);
+      if (method.win === true) {
+      amount = method.amount
+      }
     } else if (strategy === 'fibonacci') {
       amount *= getNextFibonacciBet(history);
     }
