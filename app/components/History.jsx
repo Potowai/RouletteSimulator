@@ -31,7 +31,7 @@ const History = ({ spins }) => {
   const { hotNumbers, coldNumbers } = getHotAndColdNumbers(limitedSpins);
 
   return (
-    <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md ">
+    <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md my-2 ">
       <h2 className="text-xl font-bold mb-2">Historique</h2>
       <div className="flex flex-wrap">
         {limitedSpins.map((spin, index) => (

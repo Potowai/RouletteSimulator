@@ -69,11 +69,11 @@ const Roulette = () => {
   return (
     <div className="flex flex-col items-center">
       <RouletteTable handleClick={handleClick} renderBet={renderBet} />
-      <div className="flex justify-between items-center mt-4 w-[100%]">
+      <div className="flex justify-evenly items-center mt-2 w-[100%]">
         <ResetButton handleReset={handleReset} />
         <SpinButton spinRoulette={handleSpinRoulette} />
       </div>
-      <div className="my-4">
+      <div className="my-2">
         <label className="text-white">Nombre de lancers:</label>
         <select
           className="ml-2 p-2 bg-gray-600 text-white rounded"

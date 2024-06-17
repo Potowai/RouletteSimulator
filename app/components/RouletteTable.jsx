@@ -17,82 +17,82 @@ const RouletteTable = ({ handleClick, renderBet }) => {
   ];
 
   return (
-    <div className="flex justify-center mt-8">
+    <div className="flex justify-center mt-2">
       <div className="bg-gray-800 p-2 rounded-lg">
         <div className="flex justify-center items-center bg-gray-700 rounded-r-lg relative">
-          <div className="relative flex items-center justify-center bg-green-600 rounded cursor-pointer w-10 h-60" onClick={() => handleClick('number', 0)}>
-            <div className="text-white text-2xl font-bold">0</div>
+          <div className="relative flex items-center justify-center bg-green-600 rounded cursor-pointer m-1 w-10 lg:h-80 md:h-60 h-52" onClick={() => handleClick('number', 0)}>
+            <div className="text-white md:text-2xl font-bold p-2">0</div>
             {renderBet('number', 0)}
           </div>
           <div className="grid grid-cols-12 gap-2 p-1">
             {numberRows[0].map((number) => (
-              <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
+              <div key={number} className={`relative ${getColorClass(number)} text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
                 {number}
                 {renderBet('number', number)}
               </div>
             ))}
             {numberRows[1].map((number) => (
-              <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
+              <div key={number} className={`relative ${getColorClass(number)} text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
                 {number}
                 {renderBet('number', number)}
               </div>
             ))}
             {numberRows[2].map((number) => (
-              <div key={number} className={`relative ${getColorClass(number)} text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
+              <div key={number} className={`relative ${getColorClass(number)} text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12`} onClick={() => handleClick('number', number)}>
                 {number}
                 {renderBet('number', number)}
               </div>
             ))}
             <div className="col-span-4 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '1st12')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '1st12')}>
                 1st12
                 {renderBet('dozen', '1st12')}
               </div>
             </div>
             <div className="col-span-4 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '2nd12')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '2nd12')}>
                 2nd12
                 {renderBet('dozen', '2nd12')}
               </div>
             </div>
             <div className="col-span-4 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '3rd12')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('dozen', '3rd12')}>
                 3rd12
                 {renderBet('dozen', '3rd12')}
               </div>
             </div>
             <div className="col-span-2 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', '1to18')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', '1to18')}>
                 1to18
                 {renderBet('section', '1to18')}
               </div>
             </div>
             <div className="col-span-2 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', 'EVEN')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', 'EVEN')}>
                 EVEN
                 {renderBet('section', 'EVEN')}
               </div>
             </div>
             <div className="col-span-2 relative flex items-center justify-center">
-              <div className="bg-red-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('color', 'red')}>
+              <div className="bg-red-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('color', 'red')}>
                 RED
                 {renderBet('color', 'red')}
               </div>
             </div>
             <div className="col-span-2 relative flex items-center justify-center">
-              <div className="bg-black text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('color', 'black')}>
+              <div className="bg-black text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('color', 'black')}>
                 BLACK
                 {renderBet('color', 'black')}
               </div>
             </div>
             <div className="col-span-2 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', 'ODD')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', 'ODD')}>
                 ODD
                 {renderBet('section', 'ODD')}
               </div>
             </div>
             <div className="col-span-2 relative flex items-center justify-center">
-              <div className="bg-gray-600 text-white text-xl md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', '19to36')}>
+              <div className="bg-gray-600 text-white md:text-2xl font-bold flex items-center justify-center rounded cursor-pointer w-full h-8 md:h-10 lg:h-16" onClick={() => handleClick('section', '19to36')}>
                 19to36
                 {renderBet('section', '19to36')}
               </div>

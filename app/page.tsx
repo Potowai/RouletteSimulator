@@ -13,9 +13,9 @@ const Home = () => {
         className="absolute top-4 right-4 p-2 rounded-full focus:outline-none"
         onClick={() => setDarkMode(!darkMode)}
       >
-        {darkMode ? <FaSun className="text-yellow-500" /> : <FaMoon className="text-gray-800" />}
+        {darkMode ? <FaSun className="text-yellow-500" /> : <FaMoon className="text-gray-200" />}
       </button>
-      <h1 className="text-3xl font-bold mb-8 dark:text-white">Simulation de Roulette</h1>
+      <h1 className="text-3xl font-bold text-white">Simulation de Roulette</h1>
       <Roulette />
     </div>
   );
