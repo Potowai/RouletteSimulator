@@ -1,21 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import React from 'react';
 import Roulette from './components/Roulette';
 
 const Home = () => {
-  const [darkMode, setDarkMode] = useState(true);
-
   return (
-    <div className={`min-h-screen flex flex-col items-center p-2 ${darkMode ? 'dark' : ''} text-black dark:text-white`}>
-      <button
-        className="absolute top-4 right-4 p-2 rounded-full focus:outline-none"
-        onClick={() => setDarkMode(!darkMode)}
-      >
-        {darkMode ? <FaSun className="text-yellow-500" /> : <FaMoon className="text-gray-200" />}
-      </button>
-      <h1 className="text-3xl font-bold text-white">Simulation de Roulette</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 text-slate-800 bg-slate-50 relative">
+      <h1 className="text-4xl md:text-5xl font-extrabold mb-10 tracking-tight text-slate-900 drop-shadow-sm uppercase">
+        Roulette <span className="text-blue-600">Simulator</span>
+      </h1>
       <Roulette />
     </div>
   );

@@ -6,16 +6,18 @@ const History = ({ spins }) => {
   // Limiter les spins aux 100 derniers
   const limitedSpins = spins.slice(0, 100);
 
-  const countOccurrences = (numbers) => {
-    const counts = {};
-    for (const number of numbers) {
-      counts[number] = counts[number] ? counts[number] + 1 : 1;
-    }
-    return counts;
-  };
-
   const getHotAndColdNumbers = (numbers) => {
-    const counts = countOccurrences(numbers);
+    const counts = {};
+    for (let i = 0; i <= 36; i++) {
+      counts[i] = 0;
+    }
+
+    for (const number of numbers) {
+      if (counts[number] !== undefined) {
+        counts[number]++;
+      }
+    }
+
     const sortedNumbers = Object.entries(counts).sort((a, b) => b[1] - a[1]);
     const hotNumbers = sortedNumbers.slice(0, 5).map((item) => parseInt(item[0]));
     const coldNumbers = sortedNumbers.slice(-5).map((item) => parseInt(item[0]));
@@ -31,28 +33,35 @@ const History = ({ spins }) => {
   const { hotNumbers, coldNumbers } = getHotAndColdNumbers(limitedSpins);
 
   return (
-    <div className="bg-white dark:bg-gray-700 dark:text-white p-6 rounded shadow-md w-full max-w-md my-2 ">
-      <h2 className="text-xl font-bold mb-2">Historique</h2>
-      <div className="flex flex-wrap">
+    <div className="card-minimal p-8 w-full max-w-md my-6 hover:shadow-xl transition-shadow duration-300">
+      <h2 className="text-xl font-bold mb-6 text-slate-800 uppercase tracking-wide text-center">Historique</h2>
+      <div className="flex flex-wrap gap-3 justify-center mb-8">
         {limitedSpins.map((spin, index) => (
-          <span key={index} className={`mr-2 font-black ${getColor(spin)}`}>{spin}</span>
+          <span key={index} className={`w-10 h-10 flex items-center justify-center rounded-full font-bold text-lg border-2 ${spin === 0 ? 'border-emerald-100 bg-emerald-50 text-emerald-600' :
+              getColor(spin) === 'text-red-500' ? 'border-rose-100 bg-rose-50 text-rose-500' :
+                'border-slate-200 bg-slate-100 text-slate-600'
+            }`}>{spin}</span>
         ))}
       </div>
       {limitedSpins.length > 0 && (
-        <>
-          <h2 className="text-xl font-bold mt-4">Numéros Chauds</h2>
-          <div className="flex flex-wrap">
-            {hotNumbers.map((number, index) => (
-              <span key={index} className={`mr-2 font-black ${getColor(number)}`}>{number}</span>
-            ))}
+        <div className="grid grid-cols-2 gap-8 pt-4 border-t border-slate-50">
+          <div>
+            <h2 className="text-sm font-bold mb-3 text-rose-500 text-center uppercase tracking-wider">Chauds</h2>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {hotNumbers.map((number, index) => (
+                <span key={index} className="text-base font-semibold text-rose-400 bg-rose-50 px-2 py-1 rounded-md">{number}</span>
+              ))}
+            </div>
           </div>
-          <h2 className="text-xl font-bold mt-4">Numéros Froids</h2>
-          <div className="flex flex-wrap">
-            {coldNumbers.map((number, index) => (
-              <span key={index} className={`mr-2  font-black ${getColor(number)}`}>{number}</span>
-            ))}
+          <div>
+            <h2 className="text-sm font-bold mb-3 text-slate-400 text-center uppercase tracking-wider">Froids</h2>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {coldNumbers.map((number, index) => (
+                <span key={index} className="text-base font-semibold text-slate-400 bg-slate-50 px-2 py-1 rounded-md">{number}</span>
+              ))}
+            </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

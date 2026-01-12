@@ -1,3 +1,5 @@
+export const MAX_BET = 50000;
+
 export const getColor = (number) => {
   if (number === 0) return 'green';
   const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
@@ -32,8 +34,9 @@ export const isInSection = (number, section) => {
 
 const fibonacciSequence = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233];
 
-const getNextMartingaleBet = (initialBet, lastBet, win) => {
-  return win ? initialBet : lastBet * 2;
+const getNextMartingaleBet = (initialBet, currentBet, win) => {
+  const nextBet = win ? initialBet : currentBet * 2;
+  return Math.min(nextBet, MAX_BET);
 };
 
 const getNextFibonacciBet = (history, initialBet) => {
@@ -54,11 +57,23 @@ export const spinRoulette = (methods, history, results, strategy) => {
     if (method.type === 'number' && method.value === winningNumber) {
       methodGains = amount * 36;
     } else if (method.type === 'dozen' && method.value === getDozen(winningNumber)) {
-      methodGains = amount * 3; // Pari douzaine paie 2 pour 1
+      methodGains = amount * 3;
     } else if (method.type === 'section' && isInSection(winningNumber, method.value)) {
       methodGains = amount * 2;
     } else if (method.type === 'color' && method.value === getColor(winningNumber)) {
       methodGains = amount * 2;
+    } else if (['split', 'street', 'corner', 'line', 'trio', 'top_line'].includes(method.type)) {
+      if (method.value.includes(winningNumber)) {
+        const multipliers = {
+          split: 18,
+          street: 12,
+          corner: 9,
+          line: 6,
+          trio: 12,
+          top_line: 9
+        };
+        methodGains = amount * multipliers[method.type];
+      }
     }
 
     newResults.gains += methodGains;
@@ -66,18 +81,22 @@ export const spinRoulette = (methods, history, results, strategy) => {
     newResults.solde += methodGains - amount;
 
     method.win = methodGains > 0;
+
+    // Strategy Logic
     if (strategy === 'martingale') {
-    amount = getNextMartingaleBet(method.amount, method.win);
-      if (method.win === true) {
-      amount = method.amount
-      }
+      amount = getNextMartingaleBet(method.initialBet, method.amount, method.win);
     } else if (strategy === 'fibonacci') {
+      // Note: Fibonacci logic might still be incomplete but user focused on Martingale.
+      // Keeping existing structure but fixing potential NaN if needed (not requested).
       amount *= getNextFibonacciBet(history);
     }
 
-    method.amount = amount;  // Mettez à jour la mise pour la prochaine rotation
+    method.amount = Math.min(amount, MAX_BET);  // Mettez à jour la mise pour la prochaine rotation
     console.log(JSON.stringify(method))
   });
 
-  return { winningNumber, newResults };
+  const nextTotalBet = methods.reduce((acc, m) => acc + m.amount, 0);
+  const stop = nextTotalBet > newResults.solde;
+
+  return { winningNumber, newResults, stop };
 };
